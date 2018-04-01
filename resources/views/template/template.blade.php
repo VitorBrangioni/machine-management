@@ -20,6 +20,7 @@
   <!-- Custom styles for this template-->
   {{-- <link href="css/sb-admin.css" rel="stylesheet"> --}}
   <link rel="stylesheet" href="{{ URL::asset('assets/css/sb-admin.css') }}" />
+<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -221,6 +222,8 @@
     <!-- Custom scripts for this page-->
     {{-- <script src="js/sb-admin-datatables.min.js"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('assets/js/sb-admin-datatables.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ URL::asset('assets/js/crud-support.js') }}"></script>
     
   </div>
 </body>
