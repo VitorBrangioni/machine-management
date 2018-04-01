@@ -9,7 +9,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6 pull-right">
-                <button data-toggle="modal" data-target="#create-machine" class="btn btn-success pull-right">Create Machine</button>
+                <button data-toggle="modal" data-target="#create-machine-modal" class="btn btn-success pull-right">Create Machine</button>
             </div>
         </div>
       <div class="table-responsive">
@@ -17,6 +17,7 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Status</th>
               <th>Last change</th>
               <th>Creation date</th>
               <th>actions</th>
@@ -25,57 +26,28 @@
           <tfoot>
             <tr>
               <th>Name</th>
+              <th>Status</th>
               <th>Last change</th>
               <th>Creation date</th>
               <th>actions</th>
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td>Tiger Nixon</td>
-              <td>15-01-2018</td>
-              <td>15-01-2015</td>
-              <td>
-                  <button data-toggle="modal" data-target="#change-machine" class="btn btn-warning">Change</button>
-                  <button data-toggle="modal" data-target="#delete-machine" class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Garrett Winters</td>
-              <td>15-01-2018</td>
-              <td>15-01-2015</td>
-              <td>
-                    <input type="submit" value="change" class="btn btn-warning">
-                    <input type="submit" value="delete" class="btn btn-danger">
+
+            @foreach ($machines as $machine)
+              <tr>
+                <td>{{$machine->name}}</td>
+                <td>{{$machine->status->name}}</td>
+                <td>{{$machine->updated_at}}</td>
+                <td>{{$machine->created_at}}</td>
+                <td>
+                <button data-toggle="modal" data-target="#change-machine-modal" onclick="auxUpdateMachine({{$machine->id}}, '{{$machine->name}}', '{{$machine->status->id}}')" class="btn btn-warning">Change</button>
+                    <button data-toggle="modal" data-target="#delete-machine-modal" onclick="auxDeleteMachine({{$machine->id}})" class="btn btn-danger">Delete</button>
                 </td>
-            </tr>
-            <tr>
-              <td>Ashton Cox</td>
-              <td>15-01-2018</td>
-              <td>15-01-2015</td>
-              <td>
-                    <input type="submit" value="change" class="btn btn-warning">
-                    <input type="submit" value="delete" class="btn btn-danger">
-                </td>
-            </tr>
-            <tr>
-              <td>Cedric Kelly</td>
-              <td>15-01-2018</td>
-              <td>15-01-2015</td>
-              <td>
-                    <input type="submit" value="change" class="btn btn-warning">
-                    <input type="submit" value="delete" class="btn btn-danger">
-                </td>
-            </tr>
-            <tr>
-              <td>Brielle Williamson</td>
-              <td>15-01-2018</td>
-              <td>15-01-2015</td>
-              <td>
-                    <input type="submit" value="change" class="btn btn-warning">
-                    <input type="submit" value="delete" class="btn btn-danger">
-                </td>
-            </tr>
+              </tr>
+
+            @endforeach
+           
           </tbody>
         </table>
       </div>
@@ -83,85 +55,108 @@
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="change-machine" tabindex="-1" role="dialog" aria-labelledby="change-machine" aria-hidden="true">
+    <div class="modal fade" id="change-machine-modal" tabindex="-1" role="dialog" aria-labelledby="change-machine-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="change-machine">Change Machine</h4>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                
-                    <label>Machine Name</label>
-                    <input type="text" name="machine-name" id="machine-name" value="" class="form-control">
-                
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-primary" href="login.html">Save</a>
-                </div>
-              </div>
+                <form action="{{ url('update-machine')}}" method="post">
+                  {{ csrf_field() }}
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="change-machine-modal">Change Machine</h4>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="machine-id" id="machine-id" value="">
+                        <input type="hidden" name="machine-status" id="machine-status" value="">
+                    
+                        <label>Machine Name</label>
+                        <input type="text" name="machine-name" id="machine-name" value="" class="form-control">
+
+                        <select id="change-machine-status" name="change-machine-status" class="form-control">
+
+                            {{-- <option disabled="true" selected value> -- Select a status -- </option> --}}
+                              @foreach ($allStatus as $status)
+                                <option value="{{$status->id}}">{{$status->name}}</option>
+                              @endforeach
+
+                          </select>
+                    
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </form>
             </div>
           </div>
 
 
         <!-- Logout Modal-->
-    <div class="modal fade" id="delete-machine" tabindex="-1" role="dialog" aria-labelledby="delete-machine" aria-hidden="true">
+    <div class="modal fade" id="delete-machine-modal" tabindex="-1" role="dialog" aria-labelledby="delete-machine-modal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="change-machine">Do you really want to delete this machine?</h4>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
+              <form action="{{ url('delete-machine')}}" method="post">
+                 {{ csrf_field() }}
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="change-machine-modal">Do you really want to delete this machine?</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <input type="hidden" name="machine-id-todelete" id="machine-id-todelete" value="">
+                      If you delete this machine, will not be able to recover it.
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name="submit" class="btn btn-danger">Delete</button>
+                  </div>
                 </div>
-                <div class="modal-body">
-                    If you delete this machine, will not be able to recover it.
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-danger" href="login.html">Delete</a>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
 
                <!-- Logout Modal-->
-    <div class="modal fade" id="create-machine" tabindex="-1" role="dialog" aria-labelledby="create-machine" aria-hidden="true">
+    <div class="modal fade" id="create-machine-modal" tabindex="-1" role="dialog" aria-labelledby="create-machine-modal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="change-machine">Create New Machine</h4>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>Name:</label>
-                            <input type="text" name="name-machine" id="name-machine2" class="form-control">
-                        </div>
+                <form action="{{ url('create-machine')}}" method="post">
+                  {{ csrf_field() }}
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="create-machine-modal">Create New Machine</h4>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
                     </div>
-                    <div class="row">
+                    <div class="modal-body">
+                        <div class="row">
                             <div class="col-md-12">
-                                <label>Status:</label>
-                                <select class="form-control">
-                                    <option value="volvo">Select</option>
-                                    <option value="volvo">Active</option>
-                                    <option value="saab">Manutence</option>
-                                </select>
+                                <label>Name:</label>
+                                <input type="text" name="machine-name" class="form-control">
                             </div>
                         </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <label>Status:</label>
+                                    <select name="status" class="form-control">
 
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-success" href="login.html">Create</a>
-                </div>
-              </div>
+                                      <option disabled selected value> -- Select a status -- </option>
+                                        @foreach ($allStatus as $status)
+                                          <option value="{{$status->id}}">{{$status->name}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-success">Create</button>
+                    </div>
+                  </div>
+                </form>
             </div>
           </div>
 
