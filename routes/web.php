@@ -15,14 +15,21 @@
     return view('welcome');
 }); */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');;
+Route::get('/machines', 'MachineViewController@index')->name('machines');
 
-Route::get('/machines', function () {
-    return view('machines');
-})->name('machines');;
+Route::get('/status', 'StatusViewController@index')->name('status');
 
-Route::get('/status', function () {
-    return view('status');
-})->name('status');;
+Route::get('/dashboard', 'DashboardViewController@index')->name('dashboard');
+
+Route::post('/delete-status', 'StatusViewController@delete')->name('delete-status');
+
+Route::post('/create-status', 'StatusViewController@create')->name('create-status');
+
+Route::post('/update-status', 'StatusViewController@update')->name('update-status');
+
+/* MACHINE */
+Route::post('/create-machine', 'MachineViewController@create')->name('create-machine');
+
+Route::post('/update-machine', 'MachineViewController@update')->name('update-machine');
+
+Route::post('/delete-machine', 'MachineViewController@delete')->name('delete-machine');
