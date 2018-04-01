@@ -2,6 +2,13 @@
 
 @section('content')
 
+
+@php
+    // var_dump($machines);
+
+
+@endphp
+
   <!-- Icon Cards-->
   <div class="row">
     <div class="col-xl-3 col-sm-6 mb-3">
@@ -10,7 +17,7 @@
           <div class="card-body-icon">
             <i class="fa fa-fw fa-clipboard"></i>
           </div>
-          <div class="mr-5">26 Maquinas Cadastradas!</div>
+          <div class="mr-5">{{$countMachines}} Maquinas Cadastradas!</div>
         </div>
         <a class="card-footer text-white clearfix small z-1" href="#">
           <span class="float-left">View Details</span>
@@ -89,26 +96,14 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr>
-              <td>Tiger Nixon</td>
-              <td>Desativada</td>
-            </tr>
-            <tr>
-              <td>Garrett Winters</td>
-              <td>Ativada</td>
-            </tr>
-            <tr>
-              <td>Ashton Cox</td>
-              <td>Manutencao</td>
-            </tr>
-            <tr>
-              <td>Cedric Kelly</td>
-              <td>Estragada</td>
-            </tr>
-            <tr>
-              <td>Brielle Williamson</td>
-              <td>Ativada</td>
-            </tr>
+
+            @foreach ($machines as $machine)
+                <tr>
+                  <td>{{$machine->name}}</td>
+                  <td>{{$machine->status->name}}</td>
+                </tr>
+            @endforeach
+
           </tbody>
         </table>
       </div>
