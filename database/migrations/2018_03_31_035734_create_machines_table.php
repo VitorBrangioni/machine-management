@@ -15,7 +15,7 @@ class CreateMachinesTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->unsignedInteger('status_id');
             $table->timestamps();
             $table->foreign('status_id')->references('id')->on('statuses');
