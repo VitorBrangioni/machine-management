@@ -4,6 +4,7 @@ namespace MachineManagementApp\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use MachineManagementApp\Console\Commands\SensorEventCron;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\SensorEventCron::class,
     ];
 
     /**
@@ -24,6 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // $schedule->command('sensor:event')->cron('* * * * *');
+        $schedule->command('sensor:event')->everyMinute();
         // $schedule->command('inspire')
         //          ->hourly();
     }
