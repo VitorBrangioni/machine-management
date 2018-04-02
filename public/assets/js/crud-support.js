@@ -11,6 +11,11 @@ function auxDeleteMachine(id) {
     $('#machine-id-todelete').val(id);
 }
 
+function auxChangeEventTime(id, time) {
+    $('#sensor-id').val(id);
+    $('#event-time').val(time);
+}
+
 function auxUpdateMachine(id, name, status) {
     $('#machine-id').val(id);
     $('#machine-name').val(name);
