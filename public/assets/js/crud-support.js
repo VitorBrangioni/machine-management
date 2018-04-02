@@ -24,11 +24,8 @@ function auxUpdateMachine(id, name, status) {
     var machineStatus = $('#machine-status').val();
 
     $("#change-machine-status > option").each(function () {
-        console.log("VALUE == " + this.value);
-        console.log(" - -- - - -- -- - ");
 
         if (this.value == machineStatus) {
-            $(this).attr("disabled", "true");
             $(this).attr("selected", "true");
         } else {
             $(this).removeAttr('disabled');
