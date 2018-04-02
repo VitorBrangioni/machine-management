@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         'update-status',
         'delete-machine',
         'update-machine',
-        'create-machine'
+        'create-machine',
+        'update-sensor'
     ];
 }
