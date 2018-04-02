@@ -40,6 +40,6 @@ class MachineController extends Controller
 
     public function create($name, $statusId)
     {
-        Machine::create(['name'=>$name, 'status_id' => $statusId]);
+        return Machine::create(['name'=>$name, 'status_id' => $statusId]);
     }
 }

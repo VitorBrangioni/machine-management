@@ -51,6 +51,12 @@
             <span class="nav-link-text">Status</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="{{ route('sensor') }}">
+            <i class="fa fa-fw fa-desktop"></i>
+            <span class="nav-link-text">Sensor</span>
+          </a>
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">

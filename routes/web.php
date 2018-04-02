@@ -21,6 +21,8 @@ Route::get('/status', 'StatusViewController@index')->name('status');
 
 Route::get('/dashboard', 'DashboardViewController@index')->name('dashboard');
 
+Route::get('/sensor', 'SensorViewController@index')->name('sensor');
+
 Route::post('/delete-status', 'StatusViewController@delete')->name('delete-status');
 
 Route::post('/create-status', 'StatusViewController@create')->name('create-status');
@@ -33,3 +35,5 @@ Route::post('/create-machine', 'MachineViewController@create')->name('create-mac
 Route::post('/update-machine', 'MachineViewController@update')->name('update-machine');
 
 Route::post('/delete-machine', 'MachineViewController@delete')->name('delete-machine');
+
+Route::post('/update-sensor', 'SensorViewController@update')->name('update-sensor');

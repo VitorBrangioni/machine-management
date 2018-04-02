@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use MachineManagementApp\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use MachineManagementApp\Http\Controllers\Model\SensorController;
 use MachineManagementApp\Http\Controllers\Model\StatusController;
 use MachineManagementApp\Http\Controllers\Model\MachineController;
 
@@ -40,9 +41,13 @@ class MachineViewController extends Controller
     {
         $machineName = $request->input('machine-name');
         $statusId = $request->input('status');
+        $eventTime = $request->input('event-time');
 
         $machineController = new MachineController();
-        $machineController->create($machineName, $statusId);
+        $machine = $machineController->create($machineName, $statusId);
+
+        $sensorController = new SensorController();
+        $sensorController->create($eventTime, $machine->id);
 
         return redirect('machines');
     }
