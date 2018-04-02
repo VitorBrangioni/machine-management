@@ -19,7 +19,7 @@ Route::get('/machines', 'MachineViewController@index')->name('machines');
 
 Route::get('/status', 'StatusViewController@index')->name('status');
 
-Route::get('/dashboard', 'DashboardViewController@index')->name('dashboard');
+Route::get('/', 'DashboardViewController@index')->name('dashboard');
 
 Route::get('/sensor', 'SensorViewController@index')->name('sensor');
 
