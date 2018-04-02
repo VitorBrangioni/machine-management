@@ -57,7 +57,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="change-machine-modal" tabindex="-1" role="dialog" aria-labelledby="change-machine-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-                <form action="{{ url('update-machine')}}" method="post">
+                <form action="{{ url('update-machine')}}" method="post" >
                   {{ csrf_field() }}
                   <div class="modal-content">
                     <div class="modal-header">
@@ -149,6 +149,12 @@
 
                                     </select>
                                 </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <label>Sensor Event Time:</label>
+                                <input type="time" name="event-time" class="form-control without_ampm">
+                              </div>
                             </div>
                     </div>
                     <div class="modal-footer">
