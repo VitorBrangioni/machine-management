@@ -8,6 +8,11 @@
       <i class="fa fa-table"></i> Machines </div>
     <div class="card-body">
         <div class="row">
+          <div class="col-md-12">
+            <img src="https://brangi-test.nyc3.digitaloceanspaces.com/diagrams/imagem-paginainicial.png " alt="">            
+          </div>
+        </div>
+        <div class="row">
             <div class="col-md-6 pull-right">
                 <button data-toggle="modal" data-target="#create-machine-modal" class="btn btn-success pull-right">Create Machine</button>
             </div>
